@@ -83,7 +83,7 @@ jobs:
           echo "tags: ${{ steps.meta.outputs.tags }}"
 
       - name: Create a temporary container
-        run: docker create --name temp_container ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        run: docker create --name temp_container ${{ steps.meta.outputs.tags }}
       
       - name: Copy files from container
         run: docker cp temp_container:/build /artifact
