@@ -1,5 +1,4 @@
-FROM xfan1024/openeuler:23.03-light
-RUN yum install -y qt5-devel gcc gcc-c++ make
+FROM ghcr.io/wang-zhichuang/qt5-riscv-docker:main
 
 COPY --chown=1001 ./ /build/
 
