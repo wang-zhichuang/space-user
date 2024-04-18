@@ -79,14 +79,11 @@ jobs:
 
       - name: Inspect builder
         run: |
-          echo "Name:     ${{ steps.build-image.outputs.image }}"
-          echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
-          echo "Status:    ${{ steps.buildx.outputs.status }}"
-          echo "Flags:     ${{ steps.buildx.outputs.flags }}"
-          echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
+          echo "Name:    ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          echo "tags: ${{ steps.meta.outputs.tags }}"
 
       - name: Create a temporary container
-        run: docker create --name temp_container ${{ steps.build-image.outputs.image }}
+        run: docker create --name temp_container ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       
       - name: Copy files from container
         run: docker cp temp_container:/build /artifact
