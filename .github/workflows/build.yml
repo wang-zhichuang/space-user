@@ -82,7 +82,16 @@ jobs:
           cache-to: type=gha,mode=max
           file: Dockerfile
           provenance: false
+          push: false
+      - name: Create a temporary container
+        run: docker create --name temp_container ${{ steps.build-image.outputs.image }}
+      
+      - name: Copy files from container
+        run: docker cp temp_container:/build /artifact
+      
+      - name: Remove temporary container
+        run: docker rm temp_container
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifact
-          path: ./ # or path/to/artifact
+          path: /artifact # or path/to/artifact
