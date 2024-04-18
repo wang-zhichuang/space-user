@@ -86,11 +86,11 @@ jobs:
         run: docker create --name temp_container ${{ steps.meta.outputs.tags }}
       
       - name: Copy files from container
-        run: docker cp temp_container:/build /artifact
+        run: docker cp temp_container:/build ./artifact
       
       - name: Remove temporary container
         run: docker rm temp_container
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifact
-          path: /artifact # or path/to/artifact
+          path: ./artifact # or path/to/artifact
